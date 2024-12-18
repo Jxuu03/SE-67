@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Kanit", serif;
+        }
+
+        .search-input {
+            width: 100%;
+            /* เพิ่มความกว้างของ input */
+        }
+    </style>
+</head>
+
+<body>
+    <header class="relative w-full header-bg border-b border-gray-300">
+        <div class="flex h-24 items-center justify-between max-w-screen-xl mx-auto px-6 py-4">
+            <div class="flex items-center">
+                <img class="w-28 h-auto object-cover" src="{% static 'img/logo.png' %}" alt="Logo">
+            </div>
+            <div class="flex items-center space-x-8 flex-grow">
+                <form class="max-w-md mx-auto relative flex-grow" id="search-form">
+                    <label for="default-search" class="sr-only">Search</label>
+                    <div>
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="search" id="default-search"
+                            class="block p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg search-input focus:ring focus:ring-orange-500 focus:outline-none"
+                            placeholder="ค้นหาอีเว้นท์จากคำที่เกี่ยวข้อง" required autocomplete="off" />
+                    </div>
+                    <!-- Suggestions dropdown -->
+                    <div id="suggestions"
+                        class="absolute bg-white border border-gray-300 mt-1 w-full rounded-lg shadow-lg z-10 hidden">
+                    </div>
+                    
+                </form>
+                <a href="{% url 'home' %}" class="header-item hover:text-orange-600 transition">อีเว้นท์ทั้งหมด</a>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'home' %}" class="header-item hover:text-orange-600 transition">อีเว้นท์ของฉัน</a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="header-item hover:text-orange-600 transition">ออกจากระบบ</button>
+                </form>
+                {% else %}
+                <a href="{% url 'signup' %}" class="header-item hover:text-orange-600 transition">ลงทะเบียน</a>
+                <a href="{% url 'login' %}" class="header-item hover:text-orange-600 transition">เข้าสู่ระบบ</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>
