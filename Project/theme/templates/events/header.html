@@ -22,14 +22,15 @@
 </head>
 
 <body>
-    <header class="relative w-full header-bg border-b border-gray-300">
-        <div class="flex h-24 items-center justify-between max-w-screen-xl mx-auto px-6 py-4">
+    <header class="fixed top-0 w-full header-bg">
+        <div class="flex h-24 mt-1 items-center justify-between max-w-screen-xl mx-auto px-6 py-4 shadow-lg rounded-lg">
             <div class="flex items-center">
                 <img class="w-28 h-auto object-cover" src="{% static 'img/logo.png' %}" alt="Logo">
             </div>
             <div class="flex items-center space-x-8 flex-grow">
                 <form class="max-w-md mx-auto relative flex-grow" id="search-form">
                     <label for="default-search" class="sr-only">Search</label>
+                    
                     <div>
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"

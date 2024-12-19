@@ -4,9 +4,8 @@ from django.contrib.auth.models import User
 # Member Model
 class Member(models.Model):
     username = models.OneToOneField(User, on_delete=models.CASCADE)
-    
-    device_token = models.CharField(max_length=255, null=True, blank=True)  
     email = models.EmailField(unique=True)
+    deviceToken = models.CharField(max_length=255, null=True, blank=True)  
     eventOwned = models.ForeignKey('Event', on_delete=models.CASCADE, related_name='event_owners', null=True, blank=True)  
     eventJoined = models.ManyToManyField('Event', related_name='event_participants', blank=True)  
     eventJoinedNotiEnabled = models.JSONField(default=dict, blank=True)  
@@ -22,7 +21,10 @@ class Event(models.Model):
     eventDescription = models.TextField()
     eventDate = models.DateTimeField()
     eventLocation = models.CharField(max_length=255)
-    eventStatus = models.CharField(max_length=50, choices=[('Pending', 'Pending'), ('Active', 'Active'), ('Completed', 'Completed')], default='Pending')
+    eventStatus = models.CharField(max_length=50, 
+                                   choices=[('Upcoming', 'Upcoming'), 
+                                            ('Ongoing', 'Ongoing'), 
+                                            ('Completed', 'Completed')], default='Upcoming')
     joinedMember = models.ManyToManyField(Member, related_name='events_joined', blank=True)
     
     def __str__(self):
